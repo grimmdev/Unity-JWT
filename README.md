@@ -17,7 +17,7 @@ var payload = new Dictionary<string, object>()
 };
 var secretKey = "GQDstcKsx0NHjPOuXOYg5MbeJ1XT0uFiwDVvVBrk";
 string token = UnityEngine.JWT.JsonWebToken.Encode(payload, secretKey, JWT.JwtHashAlgorithm.HS256);
-Console.WriteLine(token);
+Debug.Log(token);
 ```
 
 Output will be:
@@ -30,7 +30,7 @@ var token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJjbGFpbTEiOjAsImNsYWltMiI6Im
 var secretKey = "GQDstcKsx0NHjPOuXOYg5MbeJ1XT0uFiwDVvVBrk";
 if(UnityEngine.JWT.JsonWebToken.Verify(token, secretKey)) {
     string jsonPayload = UnityEngine.JWT.JsonWebToken.Decode(token, secretKey);
-    Console.WriteLine(jsonPayload);
+    Debug.Log(jsonPayload);
 } else {
     Debug.Log("Could not verify!");
 }
@@ -44,7 +44,7 @@ You can also deserialize the JSON payload directly to a .Net object with DecodeT
 
 ```csharp
 var payload = UnityEngine.JWT.JsonWebToken.DecodeToObject(token, secretKey) as IDictionary<string, object>;
-Console.WriteLine(payload["claim2"]);
+Debug.Log(payload["claim2"]);
 ```
 
 which will output:
