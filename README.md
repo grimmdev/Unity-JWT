@@ -4,7 +4,7 @@ Json Web Tokens for Unity.
 This library supports generating and decoding [JSON Web Tokens](http://tools.ietf.org/html/draft-jones-json-web-token-10).
 
 ## Installation
-The easiest way to install, is to download the project and extract to your individual Assets folder, this project relies on https://github.com/SaladLab/Json.Net.Unity3D.
+The easiest way to install, is to download the project and extract to your individual Assets folder, this project relies on [Newtonsoft.Json](https://github.com/SaladLab/Json.Net.Unity3D).
 
 ## Usage
 ### Creating Tokens
@@ -16,7 +16,7 @@ var payload = new Dictionary<string, object>()
     { "claim2", "claim2-value" }
 };
 var secretKey = "GQDstcKsx0NHjPOuXOYg5MbeJ1XT0uFiwDVvVBrk";
-string token = UnityEngine.JWT.ENCODE(payload, secretKey, JWT.JwtHashAlgorithm.HS256);
+string token = UnityEngine.JWT.JsonWebToken.Encode(payload, secretKey, JWT.JwtHashAlgorithm.HS256);
 Console.WriteLine(token);
 ```
 
@@ -30,7 +30,7 @@ var token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJjbGFpbTEiOjAsImNsYWltMiI6Im
 var secretKey = "GQDstcKsx0NHjPOuXOYg5MbeJ1XT0uFiwDVvVBrk";
 try
 {
-    string jsonPayload = JWT.JsonWebToken.Decode(token, secretKey);
+    string jsonPayload = UnityEngine.JWT.JsonWebToken.Decode(token, secretKey);
     Console.WriteLine(jsonPayload);
 }
 catch (JWT.SignatureVerificationException)
@@ -46,7 +46,7 @@ Output will be:
 You can also deserialize the JSON payload directly to a .Net object with DecodeToObject:
 
 ```csharp
-var payload = JWT.JsonWebToken.DecodeToObject(token, secretKey) as IDictionary<string, object>;
+var payload = UnityEngine.JWT.JsonWebToken.DecodeToObject(token, secretKey) as IDictionary<string, object>;
 Console.WriteLine(payload["claim2"]);
 ```
 
@@ -66,9 +66,9 @@ var payload = new Dictionary<string, object>()
     { "exp", now }
 };
 var secretKey = "GQDstcKsx0NHjPOuXOYg5MbeJ1XT0uFiwDVvVBrk";
-string token = JWT.JsonWebToken.Encode(payload, secretKey, JWT.JwtHashAlgorithm.HS256);
+string token = UnityEngine.JWT.JsonWebToken.Encode(payload, secretKey, JWT.JwtHashAlgorithm.HS256);
 
-string jsonPayload = JWT.JsonWebToken.Decode(token, secretKey); // JWT.SignatureVerificationException!
+string jsonPayload = UnityEngine.JWT.JsonWebToken.Decode(token, secretKey); // JWT.SignatureVerificationException!
 ```
 
 ### Configure JSON Serialization
